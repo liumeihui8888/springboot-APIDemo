@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.OrderMapper">
+    <resultMap id="BaseResultMap" type="com.example.demo.entity.Order">
+        <result column="id" jdbcType="INTEGER" property="order_id" />
+        <result column="user_id" jdbcType="INTEGER" property="user_id" />
+        <result column="product_str" jdbcType="VARCHAR" property="productsStr" />
+        <result column="status" jdbcType="INTEGER" property="status" />
+        <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
+        <result column="updatetime" jdbcType="TIMESTAMP" property="updatetime" />
+    </resultMap>
+    <insert id="addOrder" parameterType="com.example.demo.entity.Order" useGeneratedKeys="true" keyProperty="order_id" keyColumn="id">
+<!--    <insert id="addOrder" parameterType="com.example.demo.entity.Order" useGeneratedKeys="true">-->
+        INSERT INTO orderTable(user_id,product_str,status,createtime) VALUES(#{user_id},#{productsStr},#{status},#{createtime})
+    </insert>
+<!--    <insert id="insertRelationWithOrderDetail">-->
+<!--        insert into orderTDetail(orderdeatil_id,order_id)values(#{id},#{id})-->
+<!--    </insert>-->
+    <select id="queryOrderList" resultMap="BaseResultMap" >
+        SELECT * FROM  orderTable
+    </select>
+<!--    <insert id="addOrderDetail" parameterType="com.example.demo.entity.OrderDetail" useGeneratedKeys="true">-->
+<!--        INSERT INTO orderTDetail(order_id,product_id,count) VALUES(#{order_id},#{product_id},#{count})-->
+<!--    </insert>-->
+</mapper>

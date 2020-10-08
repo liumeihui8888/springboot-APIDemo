@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.OrderDetailMapper">
+    <resultMap id="BaseResultMap" type="com.example.demo.entity.OrderDetail">
+        <result column="order_id" jdbcType="INTEGER" property="order_id" />
+        <result column="product_id" jdbcType="INTEGER" property="product_id" />
+        <result column="count" jdbcType="INTEGER" property="count" />
+    </resultMap>
+    <select id="queryOrderDetailList" resultMap="BaseResultMap" >
+        SELECT * FROM  orderTDetail
+    </select>
+    <insert id="insertRelationWithOrderDetail" parameterType="com.example.demo.entity.OrderDetail" useGeneratedKeys="true" >
+        INSERT INTO orderTDetail(product_id,order_id,count) VALUES(#{product_id},#{order_id},#{count})
+    </insert>
+</mapper>

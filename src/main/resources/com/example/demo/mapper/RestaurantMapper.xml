@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.RestaurantMapper">
+    <resultMap id="BaseResultMap" type="com.example.demo.entity.Restaurant">
+        <result column="restaurant_id" jdbcType="INTEGER" property="Restaurant_id" />
+        <result column="restaurant_icon" jdbcType="VARCHAR" property="Restaurant_icon" />
+        <result column="restaurant_name" jdbcType="VARCHAR" property="Restaurant_name" />
+        <result column="restaurant_description" jdbcType="VARCHAR" property="Restaurant_description" />
+        <result column="restaurant_price" jdbcType="DOUBLE" property="Restaurant_price" />
+    </resultMap>
+    <insert id="addRestaurant" parameterType="com.example.demo.entity.Restaurant" useGeneratedKeys="true">
+        INSERT INTO restaurant(restaurant_icon,restaurant_name,restaurant_description,restaurant_price) VALUES(#{Restaurant_icon},#{Restaurant_name},#{Restaurant_description},#{Restaurant_price})
+    </insert>
+    <select id="getRestaurantList" resultMap="BaseResultMap" >
+        SELECT * FROM  restaurant
+    </select>
+</mapper>

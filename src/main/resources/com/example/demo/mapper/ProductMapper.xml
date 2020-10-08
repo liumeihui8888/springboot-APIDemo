@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.ProductMapper">
+    <resultMap id="BaseResultMap" type="com.example.demo.entity.Product">
+        <result column="product_label" jdbcType="VARCHAR" property="product_label" />
+        <result column="product_name" jdbcType="VARCHAR" property="product_name" />
+        <result column="product_description" jdbcType="VARCHAR" property="product_description" />
+        <result column="product_price" jdbcType="DOUBLE" property="product_price" />
+        <result column="product_icon" jdbcType="VARCHAR" property="product_icon" />
+        <result column="restaurant_id" jdbcType="INTEGER" property="restaurant_id" />
+    </resultMap>
+    <insert id="addProduct" parameterType="com.example.demo.entity.Product" useGeneratedKeys="true" keyProperty="product_id" keyColumn="product_id">
+        INSERT INTO product(product_name,product_label,product_description,product_price,product_icon,restaurant_id) VALUES(#{product_name},#{product_label},#{product_description},#{product_price},#{product_icon},#{restaurant_id})
+    </insert>
+    <select id="getProductList" resultMap="BaseResultMap" >
+        SELECT * FROM  product
+    </select>
+    <select id="queryProductById" resultMap="BaseResultMap" >
+        SELECT * FROM  product WHERE product_id=#{product_id}
+    </select>
+</mapper>

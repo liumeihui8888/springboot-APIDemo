@@ -1,0 +1,15 @@
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+
+#session的有效时间
+server:
+  port: 8080
+  servlet:
+    session:
+      timeout: 10m
+spring:
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+      database-platform: org.hibernate.dialect.MySQL57Dialect
