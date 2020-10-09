@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.annotation.UserLoginToken;
 import com.example.demo.entity.Response;
 import com.example.demo.entity.Restaurant;
 import com.example.demo.service.RestaurantService;
@@ -15,6 +16,7 @@ import java.util.List;
 public class RestaurantController {
     @Autowired
     RestaurantService restaurantService;
+    @UserLoginToken
     @RequestMapping(value = "/addRestaurant",method = RequestMethod.POST)
     public Response addRestaurant(@RequestBody Restaurant restaurant){
         if(restaurant.getRestaurant_name()!=null &&restaurant.getRestaurant_price()!=0&&restaurant.getRestaurant_description()!=null){
@@ -30,7 +32,7 @@ public class RestaurantController {
             return new Response("餐厅名称/餐厅价格/餐厅简介不能为空",-1,false);
         }
     }
-
+    @UserLoginToken
     @RequestMapping(value = "/getRestaurantList",method = RequestMethod.GET)
     public Response getRestaurantList(@RequestBody(required = false) Restaurant restaurant){
         Response response=new Response();

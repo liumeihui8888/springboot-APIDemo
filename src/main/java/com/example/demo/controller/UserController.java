@@ -1,6 +1,8 @@
 package com.example.demo.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.example.demo.annotation.PassToken;
+import com.example.demo.annotation.UserLoginToken;
 import com.example.demo.entity.Response;
 import com.example.demo.entity.User;
 import com.example.demo.service.UserService;
@@ -26,7 +28,7 @@ public class UserController {
         res.setCode(1);
         return res;
     }
-
+    @UserLoginToken
     @RequestMapping(value = "/findbyUserId",method = RequestMethod.POST)
     public Response findByUserId(@RequestBody Map<String,String> person ){
         int id= Integer.parseInt(person.get("id"));
@@ -58,6 +60,7 @@ public class UserController {
           return new Response("注册失败，请检查用户名，密码是否为空",-1,false);
       }
     }
+    @PassToken
     @RequestMapping(value = "/logout",method = RequestMethod.POST)
     public Response logout(HttpSession session) {
         session.removeAttribute("loginUser");
@@ -81,7 +84,9 @@ public class UserController {
                 if(password.equals(user.getPassword())){
                     //将用户名放到session中
                     session.setAttribute("loginUser",user);
-                    String token= MD5Util.getToken(user);
+                    //String token= MD5Util.getToken(user);
+                    //String token=MD5Util.createToken(user);
+                    String token=MD5Util.generateToken(user);
                     jsonObject.put("token",token);
                     jsonObject.put("user",user);
                     return new Response("登录成功",1,true,jsonObject);

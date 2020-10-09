@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.annotation.UserLoginToken;
 import com.example.demo.entity.Product;
 import com.example.demo.entity.Response;
 import com.example.demo.entity.Restaurant;
@@ -16,6 +17,7 @@ import java.util.logging.Logger;
 public class ProductController {
     @Autowired
     ProductService productService;
+    @UserLoginToken
     @RequestMapping(value = "/addProduct",method = RequestMethod.POST)
     public Response addProduct(@RequestBody Product product){
 
@@ -34,6 +36,7 @@ public class ProductController {
     }
 
     //@RequestMapping(value = "/getProductList",method = RequestMethod.GET)这种写法与下面那行写法是相等的
+    @UserLoginToken
     @GetMapping("/getProductList")  //与上面的那行写法是相等的
     public Response getProductList(@RequestBody(required = false) Product product){
         Response response=new Response();

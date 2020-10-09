@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.example.demo.annotation.UserLoginToken;
 import com.example.demo.entity.Order;
 import com.example.demo.entity.Product;
 import com.example.demo.entity.Response;
@@ -33,6 +34,7 @@ public class OrderController {
     OrderDetailService orderDetailService;
     @Autowired
     OrderDetailMapper orderDetailMapper;
+    @UserLoginToken
     @Transactional //此方法开启事务管理
     @RequestMapping(value = "/addOrder",method = RequestMethod.POST)
     public Response addOrder(@RequestBody Order order){
@@ -76,7 +78,7 @@ public class OrderController {
 
 
     }
-
+    @UserLoginToken
     @RequestMapping(value = "/queryOrderList",method = RequestMethod.POST)
     public Response queryOrderList(@RequestBody(required = false) Order order){
         Response response=new Response();

@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.annotation.UserLoginToken;
 import com.example.demo.entity.Order;
 import com.example.demo.entity.OrderDetail;
 import com.example.demo.entity.Response;
@@ -16,6 +17,7 @@ import java.util.List;
 public class OrderDetailController {
     @Autowired
     OrderDetailService orderDetailService;
+    @UserLoginToken
     @RequestMapping(value = "/queryOrderDetailList",method = RequestMethod.POST)
     public Response queryOrderDetailList(@RequestBody(required = false) Order order){
         Response response=new Response();
