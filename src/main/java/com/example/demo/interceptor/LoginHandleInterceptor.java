@@ -41,6 +41,7 @@ public class LoginHandleInterceptor implements HandlerInterceptor {
         String url = request.getRequestURI().toString();
         User loginUser = (User) request.getSession().getAttribute("loginUser");
         String token = request.getHeader("token");
+        System.out.println("request是："+request+"token是："+token);
        // Map<String,Claim> userClaimMap=MD5Util.verifyToken(token);
         //System.out.println("3333333333333333"+userClaimMap.get("id").toString());
         if (!(handler instanceof HandlerMethod)) {
@@ -61,16 +62,17 @@ public class LoginHandleInterceptor implements HandlerInterceptor {
             if (userLoginToken.required()) {
                 //执行认证
                 if (token == null) {
+                    System.out.println("url是："+url);
                     throw new RuntimeException("无token，请重新登录");
                 }
                 //获取token中的userid
                 String userId;
                 try {
-                    System.out.println("9999999999999999999:"+token);
+                    System.out.println("token是："+token);
                    // userId=userClaimMap.get("id").toString();
                     Claims claims=MD5Util.getClaimByToken(token);
                     userId = claims.getSubject();
-                    System.out.println("55555555555555:"+userId);
+                    System.out.println("用户的userId是:"+userId);
                     request.setAttribute("username",userId);
                     System.out.println();
                 } catch (JWTDecodeException j) {
@@ -79,7 +81,7 @@ public class LoginHandleInterceptor implements HandlerInterceptor {
                 int user_id01;
                 user_id01 = Integer.parseInt(userId);
                 User user = userService.queryByUserId(user_id01);
-                System.out.println("444444444444:"+user+user.getId());
+                System.out.println("用户信息是："+user+"-用户的userId是："+user.getId());
                 if (user == null) {
                     throw new RuntimeException("用户不存在，请重新登陆");
                 }

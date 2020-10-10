@@ -3,6 +3,8 @@ package com.example.demo.service.impl;
 import com.example.demo.entity.Product;
 import com.example.demo.mapper.ProductMapper;
 import com.example.demo.service.ProductService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,5 +29,13 @@ public class ProductServiceImpl implements ProductService {
     public Product queryProductById(int id) {
         Product product=productMapper.queryProductById(id);
         return product;
+    }
+
+    @Override
+    public PageInfo<Product> findAllProductByPageS(int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum,pageSize);
+        List<Product> lists=productMapper.getProductList();
+        PageInfo pageInfo=new PageInfo<Product>(lists);
+        return pageInfo;
     }
 }

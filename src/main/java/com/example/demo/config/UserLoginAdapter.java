@@ -16,7 +16,7 @@ public class UserLoginAdapter implements WebMvcConfigurer {
         registry.addInterceptor(loginHandleInterceptor)
                 //指定要拦截的请求/**表示拦截所有的请求
                 .addPathPatterns("/**")
-                .excludePathPatterns("/login","/logout"); //要排除的，不需要拦截的请求接口，包括登录与退出
+                .excludePathPatterns("/login","/logout","/register"); //要排除的，不需要拦截的请求接口，包括登录与退出
 
     }
 }

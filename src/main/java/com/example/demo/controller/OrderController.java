@@ -15,10 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -79,8 +76,8 @@ public class OrderController {
 
     }
     @UserLoginToken
-    @RequestMapping(value = "/queryOrderList",method = RequestMethod.POST)
-    public Response queryOrderList(@RequestBody(required = false) Order order){
+    @RequestMapping(value = "/queryOrderList",method = RequestMethod.GET)
+    public Response queryOrderList(@RequestParam(required = false) Order order){
         Response response=new Response();
         List<Order> orderList=orderService.queryOrderList();
         response.setResponse("查询成功",1,true,orderList);

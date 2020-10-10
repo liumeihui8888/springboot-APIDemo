@@ -1,7 +1,7 @@
 package com.example.demo.entity;
 
 
-public class Product {
+public class Product{
     String product_name;
     String product_label;
     String product_description;

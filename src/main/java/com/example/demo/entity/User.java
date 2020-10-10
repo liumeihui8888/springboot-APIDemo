@@ -1,7 +1,7 @@
 package com.example.demo.entity;
 
 
-public class User {
+public class User{
     String username;
     String password;
     String icon;

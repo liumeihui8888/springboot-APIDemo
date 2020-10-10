@@ -97,6 +97,7 @@ public class MD5Util {
 
 
     }
+    //token解析-这个方法是正确的
     public static Claims verifyJwt(String token){
         Claims claims;
         try {
@@ -108,7 +109,7 @@ public class MD5Util {
         }
         return claims;
     }
-
+    //生成token的方法
     public static String generateToken(User user){
        String userId=user.getId();
         Date nowDate=new Date();

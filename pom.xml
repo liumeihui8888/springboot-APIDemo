@@ -71,7 +71,16 @@
 			<version>1.2.3</version>
 			<scope>compile</scope>
 		</dependency>
-
+		<!--redis插件-->
+<!--		<dependency>-->
+<!--			<groupId>redis.clients</groupId>-->
+<!--			<artifactId>jedis</artifactId>-->
+<!--			<version>2.9.0</version>-->
+<!--		</dependency>-->
+<!--		<dependency>-->
+<!--			<groupId>org.springframework.data</groupId>-->
+<!--			<artifactId>spring-data-redis</artifactId>-->
+<!--		</dependency>-->
 		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>fastjson</artifactId>
@@ -117,6 +126,12 @@
 			<artifactId>servlet-api</artifactId>
 			<version>2.4</version>
 			<scope>provided</scope>
+		</dependency>
+		<!--此插件是实现分页功能的-->
+		<dependency>
+			<groupId>com.github.pagehelper</groupId>
+			<artifactId>pagehelper-spring-boot-starter</artifactId>
+			<version>1.2.3</version>
 		</dependency>
 		<!--在springboot中，当我们使用了spring-boot-starter-jdbc依赖的时候，框架会自动默认分别注入DataSourceTransactionManager，
 		所以我们不需要额外配置就可以使用@Transsactional注解进行事务的使用-->

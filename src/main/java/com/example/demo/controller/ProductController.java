@@ -7,6 +7,8 @@ import com.example.demo.entity.Restaurant;
 import com.example.demo.mapper.ProductMapper;
 import com.example.demo.service.ProductService;
 import com.example.demo.service.RestaurantService;
+import com.github.pagehelper.PageInfo;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,11 +40,18 @@ public class ProductController {
     //@RequestMapping(value = "/getProductList",method = RequestMethod.GET)这种写法与下面那行写法是相等的
     @UserLoginToken
     @GetMapping("/getProductList")  //与上面的那行写法是相等的
-    public Response getProductList(@RequestBody(required = false) Product product){
+    public Response getProductList(@RequestParam(required = false) Product product){
         Response response=new Response();
         List<Product> productList=productService.getProductList();
         response.setResponse("查询成功",1,true,productList);
         return response;
 
+    }
+
+    @UserLoginToken
+    @GetMapping(value = "findAllProductByPageS") //商品列表分页查询
+    public Response findAllProductByPageS( int pageNum, int pageSize){
+        PageInfo<Product> lists=productService.findAllProductByPageS(pageNum,pageSize);
+        return new Response("查询成功",1,true,lists);
     }
 }

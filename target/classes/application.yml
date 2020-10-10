@@ -18,5 +18,10 @@ spring:
 jwt:
   config:
     secret: haha  # 加密的secret
-    ttl: 3000  # token超时时间 秒
+    ttl: 365*6000  # token超时时间 秒
+#分页pageHelper
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
 
