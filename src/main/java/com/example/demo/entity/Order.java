@@ -9,52 +9,37 @@ import java.util.List;
 
 public class Order {
     @Autowired
-    OrderDetailMapper orderDetailMapper;
-    int order_id;
-    int user_id;
-    String productsStr;
-    int status;
-    public List<Product> productList;
-   @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    Date createtime;
-   @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    Date updatetime;
-    public Order(){}
-    public List<Product> getProductList() {
-        return productList;
+    public User user;
+    public int id;
+    public Date date;
+    public String productsStr;
+    public Restaurant restaurant;
+    public int count;
+    public double price;
+    public List<ProductPS> ps;
+
+    public User getUser() {
+        return user;
     }
 
-    public void setProductList(List<Product> productList) {
-        this.productList = productList;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public Order(int order_id, int user_id, String productsStr, int status, List<Product> productList,Date createtime, Date updatetime){
-        this.order_id=order_id;
-        this.user_id=user_id;
-        this.productsStr=productsStr;
-        this.status=status;
-        this.createtime=createtime;
-        this.updatetime=updatetime;
-        this.productList=productList;
-    }
-    public Order(int user_id,String productsStr){
-        this.user_id=user_id;
+    public int getId() {
+        return id;
     }
 
-    public int getOrder_id() {
-        return order_id;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public void setOrder_id(int order_id) {
-        this.order_id = order_id;
+    public Date getDate() {
+        return date;
     }
 
-    public int getUser_id() {
-        return user_id;
-    }
-
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public String getProductsStr() {
@@ -65,11 +50,47 @@ public class Order {
         this.productsStr = productsStr;
     }
 
-    public int getStatus() {
-        return status;
+    public Restaurant getRestaurant() {
+        return restaurant;
     }
 
-    public void setStatus(int status) {
-        this.status = status;
+    public void setRestaurant(Restaurant restaurant) {
+        this.restaurant = restaurant;
     }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public List<ProductPS> getPs() {
+        return ps;
+    }
+
+    public void setPs(List<ProductPS> ps) {
+        this.ps = ps;
+    }
+
+    //    int order_id;
+//    int user_id;
+//    String productsStr;
+//    int status;
+//    public List<Product> productList;
+//   @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+//    Date createtime;
+//   @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+//    Date updatetime;
+    public Order(){}
+
 }

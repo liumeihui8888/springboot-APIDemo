@@ -1,13 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.demo.mapper.OrderMapper">
-    <resultMap id="BaseResultMap" type="com.example.demo.entity.Order">
+    <resultMap id="BaseResultMap" type="com.example.demo.entity.table.TableOrder">
         <result column="id" jdbcType="INTEGER" property="order_id" />
         <result column="user_id" jdbcType="INTEGER" property="user_id" />
         <result column="product_str" jdbcType="VARCHAR" property="productsStr" />
         <result column="status" jdbcType="INTEGER" property="status" />
         <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
         <result column="updatetime" jdbcType="TIMESTAMP" property="updatetime" />
+        <association property="user" javaType="com.example.demo.entity.User" column="user_id">
+            <id property="id" column="uid"/>
+            <result property="username" column="username"/>
+        </association>
+        <collection property="orderDetailList" ofType="com.example.demo.entity.OrderDetail" column="order_id">
+            <id property="id" column="orderdeatil_id" ></id>
+            <result property="product_id" column="product_id"></result>
+            <result property="count" column="count"></result>
+            <association property="product" javaType="com.example.demo.entity.Product" column="product_id">
+                <id property="product_id" column="product_id"></id>
+                <result property="product_name" column="product_name"></result>
+                <result property="product_price" column="product_price"></result>
+                <result property="restaurant_id" column="restaurant_id"></result>
+
+            </association>
+        </collection>
     </resultMap>
     <insert id="addOrder" parameterType="com.example.demo.entity.Order" useGeneratedKeys="true" keyProperty="order_id" keyColumn="id">
 <!--    <insert id="addOrder" parameterType="com.example.demo.entity.Order" useGeneratedKeys="true">-->
@@ -17,8 +33,18 @@
 <!--        insert into orderTDetail(orderdeatil_id,order_id)values(#{id},#{id})-->
 <!--    </insert>-->
     <select id="queryOrderList" resultMap="BaseResultMap" >
-        SELECT * FROM  orderTable
+        SELECT u.id uid,u.username,o.id,o.user_id,o.product_str,o.status,o.createtime,o.updatetime
+        ,ot.pid,
+        ot.count,ot.orderdeatil_id,ot.product_price
+        FROM  orderTable o
+         left join user u on u.id=o.user_id
+         right join
+        (select p.product_price product_price,od.product_id pid,od.count count,od.id orderdeatil_id, od.order_id order_id from ordertdetail od,product p where od.product_id=p.product_id  )  ot
+         on o.id=ot.order_id
+<!--        ordertdetail od on o.id=od.order_id-->
+
     </select>
+
 <!--    <insert id="addOrderDetail" parameterType="com.example.demo.entity.OrderDetail" useGeneratedKeys="true">-->
 <!--        INSERT INTO orderTDetail(order_id,product_id,count) VALUES(#{order_id},#{product_id},#{count})-->
 <!--    </insert>-->

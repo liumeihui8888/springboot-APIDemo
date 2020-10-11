@@ -4,7 +4,9 @@ import com.alibaba.fastjson.JSONObject;
 import com.example.demo.annotation.UserLoginToken;
 import com.example.demo.entity.Order;
 import com.example.demo.entity.Product;
+import com.example.demo.entity.ProductPS;
 import com.example.demo.entity.Response;
+import com.example.demo.entity.table.TableOrder;
 import com.example.demo.mapper.OrderDetailMapper;
 import com.example.demo.mapper.OrderMapper;
 import com.example.demo.service.OrderDetailService;
@@ -34,9 +36,9 @@ public class OrderController {
     @UserLoginToken
     @Transactional //此方法开启事务管理
     @RequestMapping(value = "/addOrder",method = RequestMethod.POST)
-    public Response addOrder(@RequestBody Order order){
+    public Response addOrder(@RequestBody TableOrder order){
         JSONObject jsonObject=new JSONObject();
-        System.out.println("==============="+order.getProductList());
+        //System.out.println("==============="+order.getProductList());
         try {
             if(order.productList!=null &&order.productList.size()>=1 &&order.getProductsStr()!=null) {
 
@@ -44,6 +46,7 @@ public class OrderController {
                 int order_id=order.getOrder_id();
 
                 for(Product product1:order.getProductList()){
+
                     orderDetailService.insertRelationWithOrderDetail(product1.getId(),order.getOrder_id(),product1.getCount());
                     Product product=productService.queryProductById(product1.getId());
                     product1.setProduct_name(product.getProduct_name());
@@ -56,7 +59,7 @@ public class OrderController {
 
                 }
                 if (ordercount > 0) {
-                    jsonObject.put("productList",order.productList);
+                    jsonObject.put("ps",order.getProductList());
                     jsonObject.put("order_id",order.getOrder_id());
 
                     return new Response("添加成功", 1, true,jsonObject);
@@ -77,9 +80,25 @@ public class OrderController {
     }
     @UserLoginToken
     @RequestMapping(value = "/queryOrderList",method = RequestMethod.GET)
-    public Response queryOrderList(@RequestParam(required = false) Order order){
+    public Response queryOrderList(@RequestParam(required = false) TableOrder order){
         Response response=new Response();
-        List<Order> orderList=orderService.queryOrderList();
+        List<Order> orders;
+        List<TableOrder> orderList=orderService.queryOrderList();
+        for(TableOrder tableOrder:orderList){
+            Order order1=new Order();
+            order1.setId(tableOrder.getOrder_id());
+            order1.setUser(tableOrder.getUser());
+            order1.setDate(tableOrder.getCreatetime());
+//            order1.setProductsStr(tableOrder.getProductsStr());
+//            order1.setCount(tableOrder.getProductList().size());
+
+
+
+
+        }
+
+
+
         response.setResponse("查询成功",1,true,orderList);
         return response;
 

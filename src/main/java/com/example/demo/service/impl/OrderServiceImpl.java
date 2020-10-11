@@ -2,6 +2,7 @@ package com.example.demo.service.impl;
 
 import com.example.demo.entity.Order;
 import com.example.demo.entity.OrderDetail;
+import com.example.demo.entity.table.TableOrder;
 import com.example.demo.mapper.OrderMapper;
 import com.example.demo.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,7 @@ public class OrderServiceImpl implements OrderService {
     OrderMapper orderMapper;
 
     @Override
-    public int addOrder(Order order) {
+    public int addOrder(TableOrder order) {
         System.out.println("44444444444444444444"+order.getProductsStr());
         int count=orderMapper.addOrder(order);
         int order_id=order.getOrder_id();
@@ -24,8 +25,8 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<Order> queryOrderList() {
-        List<Order> orderList=orderMapper.queryOrderList();
+    public List<TableOrder> queryOrderList() {
+        List<TableOrder> orderList=orderMapper.queryOrderList();
         return orderList;
     }
 
