@@ -2,10 +2,7 @@ package com.example.demo.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.example.demo.annotation.UserLoginToken;
-import com.example.demo.entity.Order;
-import com.example.demo.entity.Product;
-import com.example.demo.entity.ProductPS;
-import com.example.demo.entity.Response;
+import com.example.demo.entity.*;
 import com.example.demo.entity.table.TableOrder;
 import com.example.demo.mapper.OrderDetailMapper;
 import com.example.demo.mapper.OrderMapper;
@@ -19,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -82,24 +80,35 @@ public class OrderController {
     @RequestMapping(value = "/queryOrderList",method = RequestMethod.GET)
     public Response queryOrderList(@RequestParam(required = false) TableOrder order){
         Response response=new Response();
-        List<Order> orders;
         List<TableOrder> orderList=orderService.queryOrderList();
+        List<Order> orders = new ArrayList<Order>();
         for(TableOrder tableOrder:orderList){
             Order order1=new Order();
             order1.setId(tableOrder.getOrder_id());
             order1.setUser(tableOrder.getUser());
             order1.setDate(tableOrder.getCreatetime());
-//            order1.setProductsStr(tableOrder.getProductsStr());
-//            order1.setCount(tableOrder.getProductList().size());
-
-
-
+            order1.setProductsStr(tableOrder.getProductsStr());
+            List<OrderDetail> orderDetailList=tableOrder.getOrderDetailList();
+            int count=0;
+            double price=0.0;
+            List<Product> products=new ArrayList<Product>();
+            for(OrderDetail orderDetail:orderDetailList){
+                count+=orderDetail.getCount();
+                price+=orderDetail.getProduct().getProduct_price()*orderDetail.getCount();
+                Product product = orderDetail.getProduct();
+                product.setCount(orderDetail.getCount());
+                products.add(product);
+            }
+            order1.setCount(count);
+            order1.setPrice(price);
+            order1.setProducts(products);
+            orders.add(order1);
 
         }
 
 
 
-        response.setResponse("查询成功",1,true,orderList);
+        response.setResponse("查询成功",1,true,orders);
         return response;
 
     }

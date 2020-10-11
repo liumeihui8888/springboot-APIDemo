@@ -17,6 +17,15 @@ public class Order {
     public int count;
     public double price;
     public List<ProductPS> ps;
+    public List<Product> products;
+
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
+    }
 
     public User getUser() {
         return user;

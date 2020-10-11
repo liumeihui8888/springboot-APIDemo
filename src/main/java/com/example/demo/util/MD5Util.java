@@ -8,7 +8,7 @@ import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.example.demo.entity.User;
-import com.oracle.xmlns.internal.webservices.jaxws_databinding.JavaWsdlMappingType;
+//import com.oracle.xmlns.internal.webservices.jaxws_databinding.JavaWsdlMappingType;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwt;
 import io.jsonwebtoken.Jwts;

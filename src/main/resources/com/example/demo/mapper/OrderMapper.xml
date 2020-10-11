@@ -14,14 +14,14 @@
         </association>
         <collection property="orderDetailList" ofType="com.example.demo.entity.OrderDetail" column="order_id">
             <id property="id" column="orderdeatil_id" ></id>
+            <result property="order_id" column="order_id"></result>
             <result property="product_id" column="product_id"></result>
             <result property="count" column="count"></result>
             <association property="product" javaType="com.example.demo.entity.Product" column="product_id">
-                <id property="product_id" column="product_id"></id>
+                <id property="id" column="product_id"></id>
                 <result property="product_name" column="product_name"></result>
                 <result property="product_price" column="product_price"></result>
                 <result property="restaurant_id" column="restaurant_id"></result>
-
             </association>
         </collection>
     </resultMap>
@@ -34,14 +34,16 @@
 <!--    </insert>-->
     <select id="queryOrderList" resultMap="BaseResultMap" >
         SELECT u.id uid,u.username,o.id,o.user_id,o.product_str,o.status,o.createtime,o.updatetime
-        ,ot.pid,
-        ot.count,ot.orderdeatil_id,ot.product_price
+        ,ot.pid product_id, ot.product_name product_name,
+        ot.count count,ot.orderdeatil_id orderdeatil_id,ot.product_price product_price, ot.order_id order_id
         FROM  orderTable o
          left join user u on u.id=o.user_id
          right join
-        (select p.product_price product_price,od.product_id pid,od.count count,od.id orderdeatil_id, od.order_id order_id from ordertdetail od,product p where od.product_id=p.product_id  )  ot
-         on o.id=ot.order_id
-<!--        ordertdetail od on o.id=od.order_id-->
+        (select
+            p.product_price product_price,od.product_id pid,od.count count,od.id orderdeatil_id, od.order_id order_id , p.product_name product_name
+            from ordertdetail od,product p where od.product_id=p.product_id) ot
+            on o.id=ot.order_id
+
 
     </select>
 
